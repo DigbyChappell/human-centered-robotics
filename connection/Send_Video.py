@@ -26,6 +26,7 @@ class Server:
                                        int(frame.shape[0]/2)))
             encoded = cv2.imencode('.jpg', frame)[1]
             data = np.array(encoded, np.uint8).tobytes()
+            print(len(data))
             self.client.send(len(data).to_bytes(8, byteorder='little'))
             self.client.send(data)
             time.sleep(1/24)
