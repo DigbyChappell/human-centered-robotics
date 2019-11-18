@@ -1,4 +1,6 @@
 import socket, time, os, random
+import cv2
+import numpy as np
 
 
 class Server:
@@ -13,15 +15,11 @@ class Server:
         self.send_data()
 
     def send_data(self):
-        x = open("test.txt", "rb")
+        coordinates = np.array([0.12223, 0.1, 0], dtype='float64')
         while True:
-            data = x.read(1024)
-            if data == b'':
-                print("finished")
-                x.close()
-                self.client.close()
-                break
+            data = coordinates.tobytes()
             self.client.send(data)
+            time.sleep(2)
 
 
 if __name__ == "__main__":
