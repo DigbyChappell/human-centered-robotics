@@ -30,10 +30,7 @@ public class webcam : MonoBehaviour
         string url = "http://24.172.4.142/mjpg/video.mjpg?COUNTER";
         //Working
         //string url = "http://200.36.58.250/mjpg/video.mjpg?resolution=640x480";
-        //NotWorking
-        //rtsp://192.168.140.120/MediaInput/h264
-        //NotWorking
-        //string url = "http://192.168.140.120/cgi-bin/mjpeg";
+
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
         //For testing
         // req.ProtocolVersion = HttpVersion.Version10;
