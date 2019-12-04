@@ -10,8 +10,12 @@ class Client:
 
     def receive_data(self):
         data = self.s.recv(64)
-        coordinates = np.frombuffer(data)
-        print(coordinates)
+        try:
+            coordinates = np.frombuffer(data)
+            print(coordinates)
+        except Exception as e:
+            action = data.decode("utf-8")
+            print(action)
             
 
 if __name__ == "__main__":

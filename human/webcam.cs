@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System;
@@ -27,7 +28,9 @@ public class webcam : MonoBehaviour
     {
         texture = new Texture2D(2, 2);
         //Working
-        string url = "http://24.172.4.142/mjpg/video.mjpg?COUNTER";
+        string url = "http://10.0.0.150:8081/video7.mjpg";
+        //string url = "http://10.0.0.150:8081/mjpg/video.mjpg";
+        //string url = "http://24.172.4.142/mjpg/video.mjpg?COUNTER";
         //Working
         //string url = "http://200.36.58.250/mjpg/video.mjpg?resolution=640x480";
 
@@ -49,6 +52,8 @@ public class webcam : MonoBehaviour
         while (true)
         {
             int bytesToRead = FindLength(stream);
+            //Debug.Log("bytes to read: " + bytesToRead);
+
             if (bytesToRead == -1)
             {
                 yield break;
@@ -56,7 +61,6 @@ public class webcam : MonoBehaviour
             int leftToRead = bytesToRead;
             while (leftToRead > 0)
             {
-                Debug.Log("Left To Read" + leftToRead);
                 leftToRead -= stream.Read(JpegData, bytesToRead - leftToRead, leftToRead);
                 yield return null;
             }
@@ -103,3 +107,44 @@ public class webcam : MonoBehaviour
         return -1;
     }
 }
+*/
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class webcam : MonoBehaviour
+{
+    public string url = "http://10.0.0.150:8081/image7.jpg";
+    public RawImage rawImage;
+
+    // automatically called when game started
+    void Start()
+    {
+        StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
+
+        // the following will be called even before the load finished
+        // rawImage.color = Color.red;
+    }
+
+    void Update()
+    {
+        StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
+
+        // the following will be called even before the load finished
+        //rawImage.color = Color.red;
+    }
+
+    // this section will be run independently
+    private IEnumerator LoadFromLikeCoroutine()
+    {
+        Debug.Log("Loading ....");
+        WWW wwwLoader = new WWW(url);   // create WWW object pointing to the url
+        yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
+
+        Debug.Log("Loaded");
+        rawImage.color = Color.white;              // set white
+        rawImage.texture = wwwLoader.texture;  // set loaded image
+    }
+}
+
