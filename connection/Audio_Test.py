@@ -6,7 +6,7 @@ import threading
 import pyaudio
 
 
-def thread_function(server):
+def thread_function():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.energy_threshold = 20000
@@ -18,12 +18,6 @@ def thread_function(server):
                 spoken = r.recognize_google(audio)
                 print("Recognised")
                 print(spoken)
-                if "open" in spoken:
-                    server.send_action("open")
-                elif "close" in spoken:
-                    server .send_action("close")
-                elif "calibrate" in spoken:
-                    server.send_action("calibrate")
             except Exception as e:
                 print(e)
                 pass
@@ -64,14 +58,12 @@ class Server:
             
 
 if __name__ == "__main__":
-    c = Client()
-    print('Connected to Unity')
-    s = Server()
+##    c = Client()
+##    print('Connected to Unity')
+##    s = Server()
     print('Connected to Robot laptop')
-    x = threading.Thread(target=thread_function, args=(s,))
+    x = threading.Thread(target=thread_function)
     x.start()
 
     while True:
-        c.receive_data()
-        s.send_coordinates(c.coordinates)
         time.sleep(0.01)

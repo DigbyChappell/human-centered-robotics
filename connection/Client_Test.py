@@ -10,7 +10,7 @@ class Client:
 
     def receive_data(self):
         data = self.s.recv(64)
-        coordinates = np.frombuffer(data)
+        data = np.frombuffer(data)
         print(coordinates)
             
 
